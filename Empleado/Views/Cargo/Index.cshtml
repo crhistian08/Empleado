@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@model IEnumerable<Empleado.Models.Cargo>
+
+@{
+    ViewBag.Title = "Lista de Cargos";
+}
+
+<h2>Lista de Cargos</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CodigoCargo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreCargo)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var cargo in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => cargo.CodigoCargo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => cargo.NombreCargo)
+            </td>
+            <td>
+                @Html.ActionLink("Detalles", "Details", new { id = cargo.CodigoCargo }) |
+                @Html.ActionLink("Editar", "Edit", new { id = cargo.CodigoCargo }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = cargo.CodigoCargo })
+            </td>
+        </tr>
+    }
+</table>

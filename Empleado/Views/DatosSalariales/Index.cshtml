@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@model IEnumerable<Empleado.Models.DatosSalariales>
+
+@{
+    ViewBag.Title = "Lista de Datos Salariales";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Ajusta la ruta según tu estructura de carpetas
+}
+
+<div class="container">
+    <h2>Lista de Datos Salariales</h2>
+
+    <p>
+        @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-primary" })
+    </p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID Empleado</th>
+                <th>Salario</th>
+                <th>Fecha de Inicio del Contrato</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var datosSalariales in Model)
+            {
+                <tr>
+                    <td>@datosSalariales.IdEmpleado</td>
+                    <td>@datosSalariales.Salario</td>
+                    <td>@datosSalariales.FechaInicioContrato</td>
+                    <td>
+                        @Html.ActionLink("Detalles", "Details", new { id = datosSalariales.IdEmpleado }, new { @class = "btn btn-info btn-sm" })
+                        @Html.ActionLink("Editar", "Edit", new { id = datosSalariales.IdEmpleado }, new { @class = "btn btn-warning btn-sm" })
+                        @Html.ActionLink("Eliminar", "Delete", new { id = datosSalariales.IdEmpleado }, new { @class = "btn btn-danger btn-sm" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

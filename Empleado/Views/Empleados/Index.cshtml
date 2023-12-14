@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Empleado.Models.Empleados>
+
+@{
+    ViewBag.Title = "Lista de Empleados";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Ajusta la ruta según tu estructura de carpetas
+}
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <!-- Agrega otros elementos head según sea necesario -->
+</head>
+<body>
+    <div class="container">
+        <h2>Lista de Empleados</h2>
+
+        <p>
+            @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-primary" })
+        </p>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Cédula</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Cargo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var empleado in Model)
+                {
+                    <tr>
+                        <td>@empleado.Cedula</td>
+                        <td>@empleado.Nombre1 @empleado.Nombre2</td>
+                        <td>@empleado.Apellido1 @empleado.Apellido2</td>
+                        <td>@empleado.Cargo.NombreCargo</td>
+                        <td>
+                            @Html.ActionLink("Detalles", "Details", new { id = empleado.Cedula }, new { @class = "btn btn-info btn-sm" })
+                            @Html.ActionLink("Editar", "Edit", new { id = empleado.Cedula }, new { @class = "btn btn-warning btn-sm" })
+                            @Html.ActionLink("Eliminar", "Delete", new { id = empleado.Cedula }, new { @class = "btn btn-danger btn-sm" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
