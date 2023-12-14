@@ -8,7 +8,7 @@
         public override void Up()
         {
             CreateTable(
-                "dbo.Cargoes",
+                "dbo.Cargos",
                 c => new
                     {
                         CodigoCargo = c.Int(nullable: false, identity: true),
@@ -17,7 +17,7 @@
                 .PrimaryKey(t => t.CodigoCargo);
             
             CreateTable(
-                "dbo.Empleadoes",
+                "dbo.Empleados",
                 c => new
                     {
                         Cedula = c.Int(nullable: false, identity: true),
@@ -28,7 +28,7 @@
                         CodigoCargo = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Cedula)
-                .ForeignKey("dbo.Cargoes", t => t.CodigoCargo, cascadeDelete: true)
+                .ForeignKey("dbo.Cargos", t => t.CodigoCargo, cascadeDelete: true)
                 .Index(t => t.CodigoCargo);
             
             CreateTable(
@@ -37,23 +37,23 @@
                     {
                         ID = c.Int(nullable: false, identity: true),
                         CedulaEmpleado = c.Int(nullable: false),
-                        Empleado_Cedula = c.Int(),
+                        Cedula = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Empleadoes", t => t.Empleado_Cedula)
-                .Index(t => t.Empleado_Cedula);
+                .ForeignKey("dbo.Empleados", t => t.Cedula)
+                .Index(t => t.Cedula);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.DatosSalariales", "Empleado_Cedula", "dbo.Empleadoes");
-            DropForeignKey("dbo.Empleadoes", "CodigoCargo", "dbo.Cargoes");
-            DropIndex("dbo.DatosSalariales", new[] { "Empleado_Cedula" });
+            DropForeignKey("dbo.DatosSalariales", "Cedula", "dbo.Empleados");
+            DropForeignKey("dbo.Empleados", "CodigoCargo", "dbo.Cargos");
+            DropIndex("dbo.DatosSalariales", new[] { "Cedula" });
             DropIndex("dbo.Empleadoes", new[] { "CodigoCargo" });
             DropTable("dbo.DatosSalariales");
-            DropTable("dbo.Empleadoes");
-            DropTable("dbo.Cargoes");
+            DropTable("dbo.Empleados");
+            DropTable("dbo.Cargos");
         }
     }
 }

@@ -9,15 +9,16 @@ using System.Web.Mvc;
 
 namespace Empleado.Controllers
 {
-    public class EmpleadoController : Controller
+    public class EmpleadosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Empleado
         public ActionResult Index()
         {
-            var empleados = db.Empleados.Include(e => e.Cargo);
+            var empleados = db.Empleado.Include(e => e.Cargo);
             return View(empleados.ToList());
+
         }
 
 
@@ -29,7 +30,7 @@ namespace Empleado.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Empleados empleado = db.Empleados.Find(id);
+            Empleados empleado = db.Empleado.Find(id);
 
             if (empleado == null)
             {
@@ -49,13 +50,13 @@ namespace Empleado.Controllers
         // POST: Empleado/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Cedula,Nombre1,Nombre2,Apellido1,Apellido2,CodigoCargo")] Empleados empleado)
+        public ActionResult Create([Bind(Include = "Cedula,Nombre1,Nombre2,Apellido1,Apellido2,CodigoCargo")] Models.Empleados empleado)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    db.Empleados.Add(empleado);
+                    db.Empleado.Add(empleado);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -78,7 +79,7 @@ namespace Empleado.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Empleados empleado = db.Empleados.Find(id);
+            Empleados empleado = db.Empleado.Find(id);
 
             if (empleado == null)
             {
@@ -92,7 +93,7 @@ namespace Empleado.Controllers
         // POST: Empleado/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Cedula,Nombre1,Nombre2,Apellido1,Apellido2,CodigoCargo")] Empleados empleado)
+        public ActionResult Edit([Bind(Include = "Cedula,Nombre1,Nombre2,Apellido1,Apellido2,CodigoCargo")] Models.Empleados empleado)
         {
             try
             {
@@ -120,7 +121,7 @@ namespace Empleado.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Empleados empleado = db.Empleados.Find(id);
+            Empleados empleado = db.Empleado.Find(id);
 
             if (empleado == null)
             {
@@ -137,8 +138,8 @@ namespace Empleado.Controllers
         {
             try
             {
-                Empleados empleado = db.Empleados.Find(id);
-                db.Empleados.Remove(empleado);
+                Empleados empleado = db.Empleado.Find(id);
+                db.Empleado.Remove(empleado);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

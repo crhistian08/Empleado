@@ -11,8 +11,9 @@ namespace Empleado.Models
         [Key]
         public int ID { get; set; }
         public int CedulaEmpleado { get; set; }
+
         // Agrega las propiedades de datos salariales necesarias
 
-        public virtual Empleados Empleado { get; set; }
+        //public virtual Empleados Empleado { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace Empleado.Models
         {
         }
 
-        public DbSet<Empleados> Empleados { get; set; }
+        public DbSet<Empleados> Empleado { get; set; }
         public DbSet<Cargo> Cargos { get; set; }
         public DbSet<DatosSalariales> DatosSalariales { get; set; }
     }
