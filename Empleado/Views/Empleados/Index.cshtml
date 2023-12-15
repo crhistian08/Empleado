@@ -8,9 +8,14 @@
 
 @{
     ViewBag.Title = "Lista de Empleados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Lista de Empleados</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo Empleado", "create")
+</p>
 
 <table class="table">
     <tr>
@@ -22,6 +27,8 @@
         <th>CodigoCargo</th>
         <th>Acciones</th>
     </tr>
+
+
     @foreach (var empleado in Model)
     {
         <tr>
@@ -38,4 +45,8 @@
             </td>
         </tr>
     }
+
+    <h2>Crear Empleado</h2>
+
+
 </table>

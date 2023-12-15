@@ -10,6 +10,7 @@ namespace Empleado.Models
     public class Empleados
     {
         [Column("Cedula")]
+        [Required(ErrorMessage = "La Cedula es obligatoria.")]
         [Key]
         public int Cedula { get; set; }
         public string Nombre1 { get; set; }

@@ -41,10 +41,45 @@ namespace Empleado.Controllers
         }
 
         // GET: Empleado/Create
-        public ActionResult Create()
+        public ActionResult create(Empleados nuevoEmpleado)
         {
-            ViewBag.CodigoCargo = new SelectList(db.Cargos, "CodigoCargo", "NombreCargo");
-            return View();
+
+
+            if (ModelState.IsValid)
+            {
+                if (nuevoEmpleado.Cedula == null)
+                {
+                    ModelState.AddModelError("Cedula", "La Cedula es obligatoria.");
+                    return View(nuevoEmpleado);
+                }
+
+                try
+                {
+                    using (var context = new ApplicationDbContext())
+                    {
+                        context.Empleado.Add(nuevoEmpleado);
+                        context.SaveChanges();
+                    }
+
+                    return RedirectToAction("index");
+                }
+
+
+                catch (Exception)
+                {
+
+                    ModelState.AddModelError(string.Empty, "Error al intentar crear un nuevo empleado.");
+
+                }
+                
+               
+
+              
+            }
+
+
+            ViewBag.CodigoCargo = new SelectList(db.Cargos, "codigocargo", "nombrecargo");
+            return View(nuevoEmpleado);
         }
 
         // POST: Empleado/Create
@@ -63,7 +98,7 @@ namespace Empleado.Controllers
             }
             catch (Exception ex)
             {
-                // Puedes agregar un punto de interrupción aquí o registrar el error.
+                //agregar un punto de interrupción aquí o registrar el error.
                 ModelState.AddModelError(string.Empty, "Error al intentar crear un empleado.");
             }
 
