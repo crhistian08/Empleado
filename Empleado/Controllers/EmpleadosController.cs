@@ -11,6 +11,7 @@ namespace Empleado.Controllers
 {
     public class EmpleadosController : Controller
     {
+        List<Empleados> ListaTipoEmp = new List<Empleados>();
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Empleado
@@ -40,8 +41,8 @@ namespace Empleado.Controllers
             return View(empleado);
         }
 
-        // GET: Empleado/Create
-        public ActionResult create(Empleados nuevoEmpleado)
+        // GET: Empleado/create
+        public ActionResult Create(Empleados nuevoEmpleado)
         {
 
 
@@ -49,14 +50,31 @@ namespace Empleado.Controllers
             {
                 if (nuevoEmpleado.Cedula == null)
                 {
+
                     ModelState.AddModelError("Cedula", "La Cedula es obligatoria.");
                     return View(nuevoEmpleado);
                 }
 
                 try
                 {
+                    ListaTipoEmp = (from _Empleado in db.Empleado
+                                    select new Empleados
+                                    {
+
+                                        Cedula = _Empleado.Cedula,
+                                        Nombre1 = _Empleado.Nombre1,
+                                        Nombre2 = _Empleado.Nombre2,
+                                        Apellido1 = _Empleado.Apellido1,
+                                        Apellido2 = _Empleado.Apellido2,
+                                        CodigoCargo = _Empleado.CodigoCargo
+
+                                    }).ToList();
+                    return View(ListaTipoEmp);
+                                   
+                                   
                     using (var context = new ApplicationDbContext())
                     {
+                        
                         context.Empleado.Add(nuevoEmpleado);
                         context.SaveChanges();
                     }
@@ -85,7 +103,7 @@ namespace Empleado.Controllers
         // POST: Empleado/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Cedula,Nombre1,Nombre2,Apellido1,Apellido2,CodigoCargo")] Models.Empleados empleado)
+        public ActionResult create([Bind(Include = "Cedula,Nombre1,Nombre2,Apellido1,Apellido2,CodigoCargo")] Models.Empleados empleado)
         {
             try
             {

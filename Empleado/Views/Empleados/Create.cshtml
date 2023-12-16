@@ -1,14 +1,4 @@
 ﻿
-@{
-    ViewBag.Title = "Create";
-}
-
-
-
-
---ejemplo--
-
-
 @model Empleado.Models.Empleados
 
 @{
@@ -18,7 +8,7 @@
 
 <h2>Crear Empleado</h2>
 
-@using (Html.BeginForm("create", "Empleado", FormMethod.Post))
+@using (Html.BeginForm("Create", "Empleados", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
