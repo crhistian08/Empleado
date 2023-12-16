@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace Empleado.Controllers
 {
     public class EmpleadosController : Controller
@@ -14,6 +15,12 @@ namespace Empleado.Controllers
         List<Empleados> ListaTipoEmp = new List<Empleados>();
         private ApplicationDbContext db = new ApplicationDbContext();
 
+
+        public ActionResult ListaEmpleados()
+        {
+            var ListaTipoEmp = db.Empleado.ToList();
+            return View(ListaTipoEmp);
+        }
         // GET: Empleado
         public ActionResult Index()
         {
